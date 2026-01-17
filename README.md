@@ -1,5 +1,14 @@
 # UX Twig Component SDC Bundle
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tito10047/ux-twig-component-sdc/ci.yml?branch=main)](https://github.com/tito10047/ux-twig-component-sdc/actions)
+[![PHP-CS-Fixer](https://img.shields.io/github/actions/workflow/status/tito10047/ux-twig-component-sdc/ci.yml?branch=main&label=code%20style)](https://github.com/tito10047/ux-twig-component-sdc/actions/workflows/ci.yml)
+[![PHPStan](https://img.shields.io/github/actions/workflow/status/tito10047/ux-twig-component-sdc/ci.yml?branch=main&label=phpstan)](https://github.com/tito10047/ux-twig-component-sdc/actions/workflows/ci.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/tito10047/ux-twig-component-sdc.svg)](https://packagist.org/packages/tito10047/ux-twig-component-sdc)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892bf.svg)](https://php.net)
+[![Symfony Version](https://img.shields.io/badge/Symfony-%3E%3D%206.4-black?logo=symfony)](https://symfony.com/)
+[![Symfony Style](https://img.shields.io/badge/code%20style-symfony-black?logo=symfony)](https://symfony.com/)
+
 A Symfony bundle that implements the **Single Directory Component (SDC)** methodology for Symfony UX. It bridges the gap between **AssetMapper** and **Twig Components** by providing a fully automated, convention-over-configuration workflow.
 
 ## The Concept
