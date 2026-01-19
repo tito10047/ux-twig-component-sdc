@@ -20,10 +20,6 @@ class ComponentBenchmark
         $this->fs = new Filesystem();
     }
 
-    /**
-     * Spustí sa len raz pred celým benchmarkom.
-     * Vygeneruje komponenty a statickú stress-test šablónu.
-     */
     public function prepare(): void
     {
         $generator = new ComponentGenerator();
@@ -33,13 +29,13 @@ class ComponentBenchmark
             $this->fs->remove($this->generatedDir);
         }
 
-        // 1. Generovanie 500 komponentov
-        $generator->generate($this->generatedDir . '/Classic', 500, false);
-        $generator->generate($this->generatedDir . '/Sdc', 500, true);
+        // 1. Generovanie 1000 komponentov
+        $generator->generate($this->generatedDir . '/Classic', 1000, false);
+        $generator->generate($this->generatedDir . '/Sdc', 1000, true);
 
         // 2. Vytvorenie stress-test šablóny pre Twig (aby sme nemerali Twig compilation)
-        $this->createStressTestTemplate('classic', 500);
-        $this->createStressTestTemplate('sdc', 500);
+        $this->createStressTestTemplate('classic', 1000);
+        $this->createStressTestTemplate('sdc', 1000);
     }
 
     private function createStressTestTemplate(string $type, int $count): void
@@ -72,21 +68,19 @@ class ComponentBenchmark
     public function benchWarmupClassic(): void
     {
         $this->clearCache('classic');
-        $kernel = new BenchmarkKernel('classic', true);
+        $kernel = new BenchmarkKernel('classic', 'test', true);
         $kernel->boot();
-        $container = $kernel->getContainer();
-        // Force compilation/cache warmup if needed, though boot() should do much of it
     }
 
     /**
-     * Meria čas kompilácie kontajnera pre tvoj SDC bundle (tu sa ukáže optimalizácia registra).
+     * Meria čas kompilácie kontajnera pre tvoj SDC bundle.
      * @Revs(1)
      * @Iterations(5)
      */
     public function benchWarmupSdc(): void
     {
         $this->clearCache('sdc');
-        $kernel = new BenchmarkKernel('sdc', true);
+        $kernel = new BenchmarkKernel('sdc', 'test', true);
         $kernel->boot();
     }
 
@@ -99,10 +93,9 @@ class ComponentBenchmark
     public function benchRenderClassic(): void
     {
         $kernel = new BenchmarkKernel('classic', 'test', false);
-        $kernel->boot(); // Prvý boot zahreje cache, ak nie je zahriata
+        $kernel->boot();
 
         $twig = $kernel->getContainer()->get('twig');
-        // Renderujeme z disku, nie cez createTemplate()
         $twig->render('stress_test_classic.html.twig');
     }
 
@@ -116,7 +109,6 @@ class ComponentBenchmark
         $kernel->boot();
 
         $twig = $kernel->getContainer()->get('twig');
-        // Renderujeme z disku
         $twig->render('stress_test_sdc.html.twig');
     }
 }

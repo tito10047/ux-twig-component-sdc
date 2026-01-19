@@ -45,6 +45,9 @@ class BenchmarkKernel extends Kernel
 
         $container->loadFromExtension('twig', [
             'default_path' => __DIR__ . '/Generated/' . ucfirst($this->type),
+            'strict_variables' => false,
+            'exception_controller' => null,
+            'debug' => false,
         ]);
 
         $ns = 'Tito10047\\UX\\TwigComponentSdc\\Tests\\Visual\\Generated\\' . ucfirst($this->type);
@@ -63,14 +66,14 @@ class BenchmarkKernel extends Kernel
             public function process(ContainerBuilder $container): void
             {
                 foreach ($container->getDefinitions() as $id => $definition) {
-                    if (str_contains($id, 'doctrine') || str_contains($id, 'database_connection') || str_contains($id, 'profiler') || str_contains($id, 'twig.runtime.serializer')) {
+                    if (str_contains($id, 'doctrine') || str_contains($id, 'database_connection') || str_contains($id, 'profiler') || str_contains($id, 'twig.runtime.serializer') || str_contains($id, 'twig.extension.profiler')) {
                         $container->removeDefinition($id);
                         continue;
                     }
                     $definition->setPublic(true);
                 }
                 foreach ($container->getAliases() as $id => $alias) {
-                    if (str_contains($id, 'doctrine') || str_contains($id, 'database_connection') || str_contains($id, 'profiler') || str_contains($id, 'twig.runtime.serializer')) {
+                    if (str_contains($id, 'doctrine') || str_contains($id, 'database_connection') || str_contains($id, 'profiler') || str_contains($id, 'twig.runtime.serializer') || str_contains($id, 'twig.extension.profiler')) {
                         $container->removeAlias($id);
                         continue;
                     }
