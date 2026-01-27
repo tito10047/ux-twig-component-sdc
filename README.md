@@ -22,8 +22,18 @@ Instead of scattering your component files across `src/`, `templates/`, and `ass
 Just create a directory for your component. Everything else is handled automatically.
 ```yaml
 ux_sdc:
-    ux_components_dir: '%kernel.project_dir%/src/Component'
+    ux_components_dir: '%kernel.project_dir%/src_component/Component'
     component_namespace: 'App\Component'
+```
+```json
+{
+   "autoload": {
+      "psr-4": {
+         "App\\": "src/",
+         "App\\Component\\": "src_component/"
+      }
+   },
+}
 ```
 ```text
 src_component/
@@ -33,7 +43,6 @@ src_component/
         ├── Alert.html.twig     # Auto-mapped template
         ├── Alert.css           # Auto-injected styles
         └── alert_controller.js # Auto-mapped Stimulus controller
-
 ```
 
 ```php
@@ -47,7 +56,6 @@ class Alert
     public string $type = 'info';
     public string $message;
 }
-
 ```
 
 > [!TIP]
