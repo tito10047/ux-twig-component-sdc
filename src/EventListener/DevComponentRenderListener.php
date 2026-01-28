@@ -4,9 +4,11 @@ namespace Tito10047\UX\Sdc\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\UX\TwigComponent\Event\PostMountEvent;
+use Symfony\UX\TwigComponent\Event\PreCreateForRenderEvent;
 use Symfony\UX\TwigComponent\Event\PreRenderEvent;
 use Tito10047\UX\Sdc\Service\AssetRegistry;
 use Tito10047\UX\Sdc\Service\ComponentMetadataResolver;
+use Tito10047\UX\Sdc\Service\ComponentNameGeneratorInterface;
 use Tito10047\UX\Sdc\Twig\ComponentNamespaceInterface;
 
 final class DevComponentRenderListener
@@ -16,6 +18,7 @@ final class DevComponentRenderListener
     public function __construct(
         private ComponentMetadataResolver $metadataResolver,
         private AssetRegistry $assetRegistry,
+        private ComponentNameGeneratorInterface $nameGenerator,
         private ?string $componentNamespace = null
     ) {
     }
@@ -27,6 +30,12 @@ final class DevComponentRenderListener
         if ($component instanceof ComponentNamespaceInterface && null !== $this->componentNamespace) {
             $component->setComponentNamespace($this->componentNamespace);
         }
+    }
+
+    #[AsEventListener(event: PreCreateForRenderEvent::class)]
+    public function preCreateForRender(PreCreateForRenderEvent $event): void
+    {
+		dump($event);
     }
 
     #[AsEventListener(event: PreRenderEvent::class)]
