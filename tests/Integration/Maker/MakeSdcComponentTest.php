@@ -10,6 +10,10 @@ class MakeSdcComponentTest extends IntegrationTestCase
 {
     protected function setUp(): void
     {
+        if (!class_exists(\Symfony\Bundle\MakerBundle\MakerBundle::class)) {
+            $this->markTestSkipped('MakerBundle is not installed.');
+        }
+
         parent::setUp();
         $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/UI');
         $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/Alert');
@@ -18,8 +22,8 @@ class MakeSdcComponentTest extends IntegrationTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-//        $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/UI');
-//        $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/Alert');
+        $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/UI');
+        $this->removeDir(self::getContainer()->getParameter('ux_sdc.ux_components_dir') . '/Alert');
     }
 
     private function removeDir(string $dir): void

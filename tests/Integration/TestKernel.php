@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Tito10047\UX\Sdc\UxSdcBundle;
-use Symfony\Bundle\MakerBundle\MakerBundle;
 
 class TestKernel extends Kernel
 {
@@ -34,13 +33,18 @@ class TestKernel extends Kernel
 
     public function registerBundles(): iterable
     {
-        return [
+        $bundles = [
             new FrameworkBundle(),
             new TwigBundle(),
             new TwigComponentBundle(),
-            new MakerBundle(),
             new UxSdcBundle(),
         ];
+
+        if (class_exists(\Symfony\Bundle\MakerBundle\MakerBundle::class)) {
+            $bundles[] = new \Symfony\Bundle\MakerBundle\MakerBundle();
+        }
+
+        return $bundles;
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
