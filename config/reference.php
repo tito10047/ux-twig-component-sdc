@@ -735,6 +735,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     },
  *     controllers_json?: scalar|null|Param, // Deprecated: The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0. // Default: null
  * }
+ * @psalm-type MakerConfig = array{
+ *     root_namespace?: scalar|null|Param, // Default: "App"
+ *     generate_final_classes?: bool|Param, // Default: true
+ *     generate_final_entities?: bool|Param, // Default: false
+ * }
  * @psalm-type UxSdcConfig = array{
  *     ux_components_dir?: scalar|null|Param, // Adresár, v ktorom sa nachádzajú komponenty. // Default: "%kernel.project_dir%/src_component"
  *     component_namespace?: scalar|null|Param, // Namespace pre komponenty. // Default: null
@@ -751,8 +756,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     framework?: FrameworkConfig,
  *     twig?: TwigConfig,
  *     twig_component?: TwigComponentConfig,
+ *     maker?: MakerConfig,
  *     ux_sdc?: UxSdcConfig,
- *     "when@prod"?: array{
+ *     "when@test"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
  *         services?: ServicesConfig,
@@ -837,7 +843,7 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  *     deprecated?: array{package:string, version:string, message?:string},
  * }
  * @psalm-type RoutesConfig = array{
- *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@test"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     ...<string, RouteConfig|ImportConfig|AliasConfig>
  * }
  */

@@ -84,6 +84,7 @@ In the `Alert.html.twig` template, you can then use the automatically generated 
 * **Performance First:** * **Compiler Pass:** All file discovery happens at build time. Zero reflection in production.
 * **Response Post-processing:** Assets are injected at the end of the request.
 * **HTTP Preload:** Automatic generation of `Link` headers to trigger early browser downloads.
+* **Maker Command:** Quickly generate new SDC components with all necessary files using `php bin/console make:sdc-component`.
 
 
 
@@ -126,7 +127,20 @@ ux_sdc:
     # Stimulus integration (auto-registers component directory in Stimulus)
     stimulus:
         enabled: true
-```
+
+## Usage
+
+### Generating Components
+
+You can use the built-in maker command to create a new component:
+
+`php bin/console make:sdc-component Alert`
+
+This will create:
+- `src/Component/Alert/Alert.php` (PHP logic)
+- `src/Component/Alert/Alert.html.twig` (Twig template)
+- `src/Component/Alert/Alert.css` (CSS styles)
+- (Optional) `src/Component/Alert/alert_controller.js` (Stimulus controller)
 
 4. **Add the placeholder to your base template:**
    Place this in your `<head>` to define where the collected assets should be injected:

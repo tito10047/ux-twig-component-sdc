@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Tito10047\UX\Sdc\UxSdcBundle;
+use Symfony\Bundle\MakerBundle\MakerBundle;
 
 class TestKernel extends Kernel
 {
@@ -37,6 +38,7 @@ class TestKernel extends Kernel
             new FrameworkBundle(),
             new TwigBundle(),
             new TwigComponentBundle(),
+            new MakerBundle(),
             new UxSdcBundle(),
         ];
     }
