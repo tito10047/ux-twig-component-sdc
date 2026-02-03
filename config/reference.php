@@ -744,6 +744,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     auto_discovery?: bool|Param, // Či sa majú automaticky hľadať asety v adresári komponentu. // Default: true
  *     placeholder?: scalar|null|Param, // Placeholder v HTML, ktorý bude nahradený asetikami. // Default: "<!-- __UX_TWIG_COMPONENT_ASSETS__ -->"
  * }
+ * @psalm-type MakerConfig = array{
+ *     root_namespace?: scalar|null|Param, // Default: "App"
+ *     generate_final_classes?: bool|Param, // Default: true
+ *     generate_final_entities?: bool|Param, // Default: false
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -752,6 +757,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig?: TwigConfig,
  *     twig_component?: TwigComponentConfig,
  *     ux_sdc?: UxSdcConfig,
+ *     maker?: MakerConfig,
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,

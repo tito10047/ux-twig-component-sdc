@@ -55,7 +55,6 @@ class MakeSdcComponentTest extends IntegrationTestCase
 
         $tester->assertCommandIsSuccessful();
         $display = $tester->getDisplay();
-        echo $display;
 
         $baseDir = self::getContainer()->getParameter('ux_sdc.ux_components_dir');
         $this->assertFileExists($baseDir . '/UI/Alert/Alert.php');
@@ -77,5 +76,31 @@ class MakeSdcComponentTest extends IntegrationTestCase
         $this->assertStringContainsString('.alert{', $cssContent);
 
         $this->assertStringContainsString('tests/Integration/Fixtures/Component/UI/Alert/Alert.php', $display);
+    }
+
+    public function testMakeSdcComponentWithColonSeparator(): void
+    {
+        self::bootKernel();
+        $application = new Application(self::$kernel);
+
+        $command = $application->find('make:sdc-component');
+        $tester = new CommandTester($command);
+
+        $tester->setInputs([
+            'UI:Alert', // Component name with colon
+            'n',     // Generate stimulus controller?
+        ]);
+
+        $tester->execute([]);
+
+        $tester->assertCommandIsSuccessful();
+
+        $baseDir = self::getContainer()->getParameter('ux_sdc.ux_components_dir');
+        $this->assertFileExists($baseDir . '/UI/Alert/Alert.php');
+        $this->assertFileExists($baseDir . '/UI/Alert/Alert.html.twig');
+        $this->assertFileExists($baseDir . '/UI/Alert/Alert.css');
+
+        $phpContent = file_get_contents($baseDir . '/UI/Alert/Alert.php');
+        $this->assertStringContainsString('namespace Tito10047\UX\Sdc\Tests\Integration\Fixtures\Component\UI\Alert;', $phpContent);
     }
 }
