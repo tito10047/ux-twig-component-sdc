@@ -47,12 +47,12 @@ final class MakeSdcComponent extends AbstractMaker
     {
         $name = $input->getArgument('name');
         if (!$name) {
-            $name = $io->ask('The name of the component (e.g. Alert or UI\Alert)', null);
+            $name = $io->ask('The name of the component (e.g. Alert or UI:Alert)', null);
         }
 
         $withStimulus = $input->getOption('stimulus') || $io->confirm('Do you want to generate a Stimulus controller?', true);
 
-        $name = str_replace('/', '\\', $name);
+        $name = str_replace(['/', ':'], '\\', $name);
         $parts = explode('\\', $name);
         $componentName = Str::asClassName(array_pop($parts));
         $subNamespace = implode('\\', array_map([Str::class, 'asClassName'], $parts));

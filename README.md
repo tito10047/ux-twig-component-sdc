@@ -150,7 +150,7 @@ ux_sdc:
 
 You can use the built-in maker command to create a new component:
 
-`php bin/console make:sdc-component UI\Alert`
+`php bin/console make:sdc-component UI:Alert`
 
 This will create:
 - `src/Component/UI/Alert/Alert.php` (PHP logic)
