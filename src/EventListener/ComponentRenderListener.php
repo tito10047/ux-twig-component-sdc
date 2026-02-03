@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the UX SDC Bundle
+ *
+ * (c) Jozef Môstka <https://github.com/tito10047/ux-sdc>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tito10047\UX\Sdc\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
@@ -46,7 +55,7 @@ final class ComponentRenderListener
     #[AsEventListener(event: PreRenderEvent::class)]
     public function onPreRender(PreRenderEvent $event): void
     {
-		$component = $event->getComponent();
+        $component = $event->getComponent();
         $templatePath = $this->metadataRegistry->getMetadata($component::class . '_template');
 
         if ($templatePath) {
